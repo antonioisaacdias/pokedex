@@ -1,9 +1,9 @@
 package models;
 
 public abstract class Pokemon{
-private int number;
-private String name;
-private Type[] type;
+protected int number;
+protected String name;
+protected Type[] type;
 
 abstract void getInfo();
 
