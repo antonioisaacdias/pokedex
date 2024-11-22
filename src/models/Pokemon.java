@@ -5,7 +5,13 @@ protected int number;
 protected String name;
 protected Type[] type;
 
-abstract void getInfo();
+    public Pokemon(int number, String name, Type[] type) {
+        this.number = number;
+        this.name = name;
+        this.type = type;
+    }
+
+    abstract void getInfo();
 
 abstract void makeNoise();
 }

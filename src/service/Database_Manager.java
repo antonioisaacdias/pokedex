@@ -8,6 +8,13 @@ public class Database_Manager {
     private String user;
     private String password;
 
+    public Database_Manager(Connection connection, String url, String user, String password) {
+        this.connection = connection;
+        this.url = url;
+        this.user = user;
+        this.password = password;
+    }
+
     public void connect(){}
     public void disconnect(){}
 }
