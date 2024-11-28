@@ -3,8 +3,8 @@ package models;
 import java.util.List;
 
 public class Treiner {
-    private String name;
-    private List<Pokemon> pokemons;
+    private final String name;
+    private final List<Pokemon> pokemons;
 
     public Treiner(String name, List<Pokemon> pokemons) {
         this.name = name;

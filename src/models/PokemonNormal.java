@@ -1,22 +1,21 @@
 package models;
 
 public class PokemonNormal extends Pokemon {
-    private PokemonNormal evolution;
+    private String evolution;
 
-    public PokemonNormal(int number, String name, Type[] type, PokemonNormal evolution) {
+    public PokemonNormal(int number, String name, Type type) {
         super(number, name, type);
-        this.evolution = evolution;
+    }
+
+
+    @Override
+    public void getInfo(){
+        String info = "Número: " + this.number + " | Nome: " + this.name + " | Tipo: " + this.type.getName();
+        System.out.println(info);
     }
 
     @Override
-    void getInfo(){
-        System.out.println(this.number);
-        System.out.println(this.name);
-        System.out.println(this.evolution);
-    }
-
-    @Override
-    void makeNoise() {
+    public void makeNoise() {
 
     }
 }

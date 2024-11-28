@@ -1,20 +1,21 @@
 package service;
 
-import com.sun.jdi.connect.spi.Connection;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class Database_Manager {
-    public Connection connection;
-    private String url;
-    private String user;
-    private String password;
+    private static final String URL = "jdbc:mariadb://localhost:3306/pokedex";
+    private static final String USER = "root";
+    private static final String PASSWORD = "33202121";
 
-    public Database_Manager(Connection connection, String url, String user, String password) {
-        this.connection = connection;
-        this.url = url;
-        this.user = user;
-        this.password = password;
+    public static Connection getConnection() {
+        try {
+            return DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (SQLException e) {
+            System.out.println("Erro ao estabelecer conexão: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
-
-    public void connect(){}
-    public void disconnect(){}
 }
