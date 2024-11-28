@@ -9,10 +9,14 @@ public class PokemonLengendary extends Pokemon {
         this.history = history;
     }
 
+    public String getHistory() {
+        return history;
+    }
+
     @Override
     public void getInfo(){
-        System.out.println(this.number);
-        System.out.println(this.name);
+        String info = "Número: " + this.number + " | Nome: " + this.name + " | Tipo: " + this.type.getName();
+        System.out.println(info);
         System.out.println(this.history);
     }
 
