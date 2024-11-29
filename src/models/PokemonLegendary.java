@@ -15,13 +15,8 @@ public class PokemonLegendary extends Pokemon {
 
     @Override
     public void getInfo(){
-        String info = "Número: " + this.number + " | Nome: " + this.name + " | Tipo: " + this.type.getName();
+        String info = "Número: " + this.number + " | Nome: " + this.name + " | Tipo: " + this.type.getName() + " | ESSE POKEMON É LENDÁRIO! | História: " + this.history;
         System.out.println(info);
-        System.out.println(this.history);
     }
 
-    @Override
-    void makeNoise() {
-
-    }
 }

@@ -87,7 +87,6 @@ public class Pokedex {
                 String type1 = pokemonNormal.getType().getSubtype1();
                 String type2 = pokemonNormal.getType().getSubtype2();
                 String evolution = pokemonNormal.getEvolution();
-                System.out.println(evolution);
                 int isLegendary = 0;
                 String history = null;
 
@@ -125,14 +124,14 @@ public class Pokedex {
         }
     }
 
-    public static List<Pokemon> fetchAllPokemon(){
+    public static ArrayList<Pokemon> fetchAllPokemon(){
         String sql = "SELECT number, name, type1, type2, evolution, isLegendary, history FROM pokemon";
 
         try (Connection connection = Database_Manager.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
 
-            List<Pokemon> pokemons = new ArrayList<>();
+            ArrayList<Pokemon> pokemons = new ArrayList<>();
 
             while (resultSet.next()) {
                 boolean isLegendary = (resultSet.getInt("isLegendary") == 1);
@@ -219,7 +218,7 @@ public class Pokedex {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                Boolean isLegendary = (resultSet.getInt("isLegendary?") == 1);
+                Boolean isLegendary = (resultSet.getInt("isLegendary") == 1);
                 if(isLegendary) {
                     System.out.println("Esse pokemon é lendário!");
 

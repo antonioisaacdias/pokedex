@@ -23,12 +23,13 @@ public class PokemonNormal extends Pokemon {
 
     @Override
     public void getInfo(){
-        String info = "Número: " + this.number + " | Nome: " + this.name + " | Tipo: " + this.type.getName() + " | Evolução: " + this.evolution;
+        String evolutionName;
+        if (this.evolution == null) {
+            evolutionName = "Não evolui!";
+        } else {
+            evolutionName = this.evolution;
+        }
+        String info = "Número: " + this.number + " | Nome: " + this.name + " | Tipo: " + this.type.getName() + " | Evolução: " + evolutionName;
         System.out.println(info);
-    }
-
-    @Override
-    public void makeNoise() {
-
     }
 }
