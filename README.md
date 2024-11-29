@@ -1,5 +1,9 @@
-  A ideia do projeto pensado por Antônio Isaac foi de criar uma Pokedex, para os amantes de Pokémon dispenso explicações, para os não amantes (leigos) é uma enciclopédia virtual que detém todas as espécies de Pokémon
+  A ideia do projeto pensado por Antônio Isaac foi de criar uma Pokedex, para os amantes de Pokémon dispenso explicações, para os não amantes (leigos) é uma enciclopédia virtual que detém todas as espécies de Pokémon.
 
+  Foram utilizadas as tecnologias:
+  Java23;
+  MariaDB;
+  Docker;
 
   Aqui está o diagrama de classe UML
   
