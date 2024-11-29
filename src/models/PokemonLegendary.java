@@ -1,10 +1,10 @@
 package models;
 
-public class PokemonLengendary extends Pokemon {
+public class PokemonLegendary extends Pokemon {
 
     private final String history;
 
-    public PokemonLengendary(int number, String name, Type type, String history) {
+    public PokemonLegendary(int number, String name, Type type, String history) {
         super(number, name, type);
         this.history = history;
     }

@@ -1,7 +1,7 @@
 package service;
 
 import models.Pokemon;
-import models.PokemonLengendary;
+import models.PokemonLegendary;
 import models.PokemonNormal;
 import models.Type;
 
@@ -34,14 +34,14 @@ public class Pokedex {
                 preparedStatement.setString(7, history);
 
             }
-            else if (pokemon instanceof PokemonLengendary pokemonLengendary) {
-                int number = pokemonLengendary.getNumber();
-                String name = pokemonLengendary.getName();
-                String type1 = pokemonLengendary.getType().getSubtype1();
-                String type2 = pokemonLengendary.getType().getSubtype2();
+            else if (pokemon instanceof PokemonLegendary pokemonLegendary) {
+                int number = pokemonLegendary.getNumber();
+                String name = pokemonLegendary.getName();
+                String type1 = pokemonLegendary.getType().getSubtype1();
+                String type2 = pokemonLegendary.getType().getSubtype2();
                 String evolution = null;
                 int isLegendary = 1;
-                String history = pokemonLengendary.getHistory();
+                String history = pokemonLegendary.getHistory();
 
                 preparedStatement.setInt(1, number);
                 preparedStatement.setString(2, name);
@@ -52,6 +52,7 @@ public class Pokedex {
                 preparedStatement.setString(7, history);
             }
 
+            preparedStatement.executeUpdate();
             System.out.println("Pokemon cadastrado com sucesso!");
 
         } catch (SQLException e) {
@@ -99,14 +100,14 @@ public class Pokedex {
                 preparedStatement.setString(6, history);
 
             }
-            else if (pokemon instanceof PokemonLengendary pokemonLengendary) {
-                int number = pokemonLengendary.getNumber();
-                String name = pokemonLengendary.getName();
-                String type1 = pokemonLengendary.getType().getSubtype1();
-                String type2 = pokemonLengendary.getType().getSubtype2();
+            else if (pokemon instanceof PokemonLegendary pokemonLegendary) {
+                int number = pokemonLegendary.getNumber();
+                String name = pokemonLegendary.getName();
+                String type1 = pokemonLegendary.getType().getSubtype1();
+                String type2 = pokemonLegendary.getType().getSubtype2();
                 String evolution = null;
                 int isLegendary = 1;
-                String history = pokemonLengendary.getHistory();
+                String history = pokemonLegendary.getHistory();
 
                 preparedStatement.setInt(7, number);
                 preparedStatement.setString(1, name);
@@ -116,6 +117,7 @@ public class Pokedex {
                 preparedStatement.setInt(5, isLegendary);
                 preparedStatement.setString(6, history);
             }
+            preparedStatement.executeUpdate();
             System.out.println("Pokemon atualizado com sucesso!");
 
         } catch (SQLException e) {
@@ -123,24 +125,47 @@ public class Pokedex {
         }
     }
 
-    public static List<String> fetchAllPokemon(){
-        String sql = "SELECT number, name FROM pokemon";
-        List<String> pokemons = new ArrayList<>();
+    public static List<Pokemon> fetchAllPokemon(){
+        String sql = "SELECT number, name, type1, type2, evolution, isLegendary, history FROM pokemon";
 
         try (Connection connection = Database_Manager.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
 
+            List<Pokemon> pokemons = new ArrayList<>();
+
             while (resultSet.next()) {
-                int number = resultSet.getInt("number");
-                String name = resultSet.getString("name");
-                pokemons.add(number + " - " + name);
+                boolean isLegendary = (resultSet.getInt("isLegendary") == 1);
+
+                if(!isLegendary) {
+                    int number = resultSet.getInt("number");
+                    String name = resultSet.getString("name");
+                    String typeName1 = resultSet.getString("type1");
+                    String typeName2 = resultSet.getString("type2");
+                    String evolution = resultSet.getString("evolution");
+
+                    Type type = new Type(typeName1, typeName2);
+                    PokemonNormal pokemonNormal = new PokemonNormal(number, name, type, evolution);
+                    pokemons.add(pokemonNormal);
+                }
+                else {
+                    int number = resultSet.getInt("number");
+                    String name = resultSet.getString("name");
+                    String typeName1 = resultSet.getString("type1");
+                    String typeName2 = resultSet.getString("type2");
+                    String history = resultSet.getString("history");
+
+                    Type type = new Type(typeName1, typeName2);
+                    PokemonLegendary pokemonLegendary = new PokemonLegendary(number, name, type, history);
+                    pokemons.add(pokemonLegendary);
+                }
             }
+            return pokemons;
 
         } catch (SQLException e) {
             System.out.println("Erro ao consultar todos os Pokémon: " + e.getMessage());
+            return null;
         }
-        return pokemons;
     }
 
     public static Pokemon fetchPokemonByNumber(int number){
@@ -162,7 +187,7 @@ public class Pokedex {
                     String history = resultSet.getString("history");
                     Type type = new Type(typeName1, typeName2);
 
-                    return new PokemonLengendary(number, name, type, history);
+                    return new PokemonLegendary(number, name, type, history);
 
                 } else {
                     String name = resultSet.getString("name");
@@ -204,7 +229,7 @@ public class Pokedex {
                     String history = resultSet.getString("history");
                     Type type = new Type(typeName1, typeName2);
 
-                    return new PokemonLengendary(number, name, type, history);
+                    return new PokemonLegendary(number, name, type, history);
 
                 } else {
                     int number = Integer.parseInt(resultSet.getString("number"));
